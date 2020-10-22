@@ -1,0 +1,7 @@
+ca/ca.p12
+elasticsearch-ssl-http.zip
+ca/README.txt
+elasticsearch/README.txt
+kibana/README.txt
+kibana/sample-kibana.yml
+elasticsearch/sample-elasticsearch.yml

@@ -1,0 +1,281 @@
+version: '3.8'
+services:
+    esmst01:
+        image: docker.elastic.co/elasticsearch/elasticsearch:7.8.0
+        container_name: esmaster01
+        volumes:
+            - ./elastic-certificates.p12:/usr/share/elasticsearch/config/elastic-certificates.p12
+            - ./elasticsearch/http.p12:/usr/share/elasticsearch/config/http.p12
+        environment:
+            - node.name=esmaster01
+            - cluster.name=es_cluster
+            - discovery.seed_hosts=esmaster01,esmaster02,esmaster03
+            - cluster.initial_master_nodes=esmaster01,esmaster02,esmaster03
+            - bootstrap.memory_lock=true
+            - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+            - node.master=true
+            - node.data=false
+            - node.ingest=false
+            - xpack.monitoring.collection.enabled=true
+            - xpack.security.enabled=true
+            - xpack.security.transport.ssl.enabled=true
+            - xpack.security.transport.ssl.verification_mode=certificate
+            - xpack.security.transport.ssl.keystore.path=elastic-certificates.p12
+            - xpack.security.transport.ssl.truststore.path=elastic-certificates.p12
+            #- xpack.security.http.ssl.enabled=true
+            #- xpack.security.http.ssl.keystore.path=http.p12
+        ulimits:
+            memlock:
+                soft: -1
+                hard: -1
+        expose:
+            - "9200"
+        networks:
+            - bridge
+    
+    esmst02:
+        image: docker.elastic.co/elasticsearch/elasticsearch:7.8.0
+        container_name: esmaster02
+        volumes:
+            - ./elastic-certificates.p12:/usr/share/elasticsearch/config/elastic-certificates.p12
+            - ./elasticsearch/http.p12:/usr/share/elasticsearch/config/http.p12
+        environment:
+            - node.name=esmaster02
+            - cluster.name=es_cluster
+            - discovery.seed_hosts=esmaster01,esmaster02,esmaster03
+            - cluster.initial_master_nodes=esmaster01,esmaster02,esmaster03
+            - bootstrap.memory_lock=true
+            - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+            - node.master=true
+            - node.data=false
+            - node.ingest=false
+            - xpack.monitoring.collection.enabled=true
+            - xpack.security.enabled=true
+            - xpack.security.transport.ssl.enabled=true
+            - xpack.security.transport.ssl.verification_mode=certificate
+            - xpack.security.transport.ssl.keystore.path=elastic-certificates.p12
+            - xpack.security.transport.ssl.truststore.path=elastic-certificates.p12
+            #- xpack.security.http.ssl.enabled=true
+            #- xpack.security.http.ssl.keystore.path=http.p12
+        ulimits:
+            memlock:
+                soft: -1
+                hard: -1
+        expose:
+            - "9200"
+        networks:
+            - bridge
+    
+    esmst03:
+        image: docker.elastic.co/elasticsearch/elasticsearch:7.8.0
+        container_name: esmaster03
+        volumes:
+            - ./elastic-certificates.p12:/usr/share/elasticsearch/config/elastic-certificates.p12
+            - ./elasticsearch/http.p12:/usr/share/elasticsearch/config/http.p12
+        environment:
+            - node.name=esmaster03
+            - cluster.name=es_cluster
+            - discovery.seed_hosts=esmaster01,esmaster02,esmaster03
+            - cluster.initial_master_nodes=esmaster01,esmaster02,esmaster03
+            - bootstrap.memory_lock=true
+            - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+            - node.master=true
+            - node.data=false
+            - node.ingest=false
+            - xpack.monitoring.collection.enabled=true
+            - xpack.security.enabled=true
+            - xpack.security.transport.ssl.enabled=true
+            - xpack.security.transport.ssl.verification_mode=certificate
+            - xpack.security.transport.ssl.keystore.path=elastic-certificates.p12
+            - xpack.security.transport.ssl.truststore.path=elastic-certificates.p12
+            #- xpack.security.http.ssl.enabled=true
+            #- xpack.security.http.ssl.keystore.path=http.p12
+        ulimits:
+            memlock:
+                soft: -1
+                hard: -1
+        expose:
+            - "9200"
+        networks:
+            - bridge
+
+    esigt01:
+        image: docker.elastic.co/elasticsearch/elasticsearch:7.8.0
+        container_name: esingest01
+        volumes:
+            - ./elastic-certificates.p12:/usr/share/elasticsearch/config/elastic-certificates.p12
+        environment:
+            - node.name=esingest01
+            - cluster.name=es_cluster
+            - discovery.seed_hosts=esmaster01,esmaster02,esmaster03
+            - cluster.initial_master_nodes=esmaster01,esmaster02,esmaster03
+            - bootstrap.memory_lock=true
+            - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+            - node.master=false
+            - node.data=false
+            - node.ingest=true
+            - xpack.monitoring.collection.enabled=true
+            - xpack.security.enabled=true
+            - xpack.security.transport.ssl.enabled=true
+            - xpack.security.transport.ssl.verification_mode=certificate
+            - xpack.security.transport.ssl.keystore.path=elastic-certificates.p12
+            - xpack.security.transport.ssl.truststore.path=elastic-certificates.p12
+        ulimits:
+            memlock:
+                soft: -1
+                hard: -1
+        expose:
+            - "9200"
+        networks:
+            - bridge
+
+    esigt02:
+        image: docker.elastic.co/elasticsearch/elasticsearch:7.8.0
+        container_name: esingest02
+        volumes:
+            - ./elastic-certificates.p12:/usr/share/elasticsearch/config/elastic-certificates.p12
+        environment:
+            - node.name=esingest02
+            - cluster.name=es_cluster
+            - discovery.seed_hosts=esmaster01,esmaster02,esmaster03
+            - cluster.initial_master_nodes=esmaster01,esmaster02,esmaster03
+            - bootstrap.memory_lock=true
+            - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+            - node.master=false
+            - node.data=false
+            - node.ingest=true
+            - xpack.monitoring.collection.enabled=true
+            - xpack.security.enabled=true
+            - xpack.security.transport.ssl.enabled=true
+            - xpack.security.transport.ssl.verification_mode=certificate
+            - xpack.security.transport.ssl.keystore.path=elastic-certificates.p12
+            - xpack.security.transport.ssl.truststore.path=elastic-certificates.p12
+        ulimits:
+                memlock:
+                    soft: -1
+                    hard: -1
+        expose:
+            - "9200"
+        networks:
+                - bridge
+
+    esdta01:
+        image: docker.elastic.co/elasticsearch/elasticsearch:7.8.0
+        container_name: esdata01
+        environment:
+            - node.name=esdata01
+            - cluster.name=es_cluster
+            - discovery.seed_hosts=esmaster01,esmaster02,esmaster03
+            - cluster.initial_master_nodes=esmaster01,esmaster02,esmaster03
+            - bootstrap.memory_lock=true
+            - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+            - node.master=false
+            - node.data=true
+            - node.ingest=false
+            - xpack.monitoring.collection.enabled=true
+            - xpack.security.enabled=true
+            - xpack.security.transport.ssl.enabled=true
+            - xpack.security.transport.ssl.verification_mode=certificate
+            - xpack.security.transport.ssl.keystore.path=elastic-certificates.p12
+            - xpack.security.transport.ssl.truststore.path=elastic-certificates.p12
+        ulimits:
+                memlock:
+                    soft: -1
+                    hard: -1
+        expose:
+            - "9200"
+        volumes:
+            - esdta01:/usr/share/elasticsearch/data
+            - ./elastic-certificates.p12:/usr/share/elasticsearch/config/elastic-certificates.p12
+        networks:
+                - bridge
+
+    esdta02:
+        image: docker.elastic.co/elasticsearch/elasticsearch:7.8.0
+        container_name: esdata02
+        environment:
+            - node.name=esdata02
+            - cluster.name=es_cluster
+            - discovery.seed_hosts=esmaster01,esmaster02,esmaster03
+            - cluster.initial_master_nodes=esmaster01,esmaster02,esmaster03
+            - bootstrap.memory_lock=true
+            - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+            - node.master=false
+            - node.data=true
+            - node.ingest=false
+            - xpack.monitoring.collection.enabled=true
+            - xpack.security.enabled=true
+            - xpack.security.transport.ssl.enabled=true
+            - xpack.security.transport.ssl.verification_mode=certificate
+            - xpack.security.transport.ssl.keystore.path=elastic-certificates.p12
+            - xpack.security.transport.ssl.truststore.path=elastic-certificates.p12
+        ulimits:
+                memlock:
+                    soft: -1
+                    hard: -1
+        expose:
+            - "9200"
+        volumes:
+            - esdta02:/usr/share/elasticsearch/data
+            - ./elastic-certificates.p12:/usr/share/elasticsearch/config/elastic-certificates.p12
+        networks:
+                - bridge
+
+    esdta03:
+        image: docker.elastic.co/elasticsearch/elasticsearch:7.8.0
+        container_name: esdata03
+        environment:
+            - node.name=esdata03
+            - cluster.name=es_cluster
+            - discovery.seed_hosts=esmaster01,esmaster02,esmaster03
+            - cluster.initial_master_nodes=esmaster01,esmaster02,esmaster03
+            - bootstrap.memory_lock=true
+            - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+            - node.master=false
+            - node.data=true
+            - node.ingest=false
+            - xpack.monitoring.collection.enabled=true
+            - xpack.security.enabled=true
+            - xpack.security.transport.ssl.enabled=true
+            - xpack.security.transport.ssl.verification_mode=certificate
+            - xpack.security.transport.ssl.keystore.path=elastic-certificates.p12
+            - xpack.security.transport.ssl.truststore.path=elastic-certificates.p12
+        ulimits:
+                memlock:
+                    soft: -1
+                    hard: -1
+        expose:
+            - "9200"
+        volumes:
+            - esdta03:/usr/share/elasticsearch/data
+            - ./elastic-certificates.p12:/usr/share/elasticsearch/config/elastic-certificates.p12
+        networks:
+                - bridge
+
+    kibana:
+        image: docker.elastic.co/kibana/kibana:7.8.0
+        container_name: kibana
+        volumes:
+            - ./kibana.yml:/usr/share/kibana/config/kibana.yml
+            - ./elastic-certificates.p12:/usr/share/kibana/config/elastic-certificates.p12
+            - ./kibana/elasticsearch-ca.pem:/usr/share/kibana/config/elasticsearch-ca.pem
+        ulimits:
+                memlock:
+                    soft: -1
+                    hard: -1
+        ports:
+            - 5601:5601
+        networks:
+            - bridge
+        
+volumes:
+    esdta01:
+        driver: local
+    esdta02:
+        driver: local
+    esdta03:
+        driver: local
+
+networks:
+    bridge:
+        driver: bridge
