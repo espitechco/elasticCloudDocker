@@ -1,6 +1,6 @@
 version: '3.8'
 services:
-    esmst01:
+    esmaster01:
         image: docker.elastic.co/elasticsearch/elasticsearch:7.8.0
         container_name: esmaster01
         volumes:
@@ -16,12 +16,12 @@ services:
             - node.master=true
             - node.data=false
             - node.ingest=false
-            - xpack.monitoring.collection.enabled=true
-            - xpack.security.enabled=true
-            - xpack.security.transport.ssl.enabled=true
-            - xpack.security.transport.ssl.verification_mode=certificate
-            - xpack.security.transport.ssl.keystore.path=elastic-certificates.p12
-            - xpack.security.transport.ssl.truststore.path=elastic-certificates.p12
+            #- xpack.monitoring.collection.enabled=true
+            #- xpack.security.enabled=false
+            #- xpack.security.transport.ssl.enabled=false
+            #- xpack.security.transport.ssl.verification_mode=certificate
+            #- xpack.security.transport.ssl.keystore.path=elastic-certificates.p12
+            #- xpack.security.transport.ssl.truststore.path=elastic-certificates.p12
             #- xpack.security.http.ssl.enabled=true
             #- xpack.security.http.ssl.keystore.path=http.p12
         ulimits:
@@ -33,7 +33,7 @@ services:
         networks:
             - bridge
     
-    esmst02:
+    esmaster02:
         image: docker.elastic.co/elasticsearch/elasticsearch:7.8.0
         container_name: esmaster02
         volumes:
@@ -49,24 +49,25 @@ services:
             - node.master=true
             - node.data=false
             - node.ingest=false
-            - xpack.monitoring.collection.enabled=true
-            - xpack.security.enabled=true
-            - xpack.security.transport.ssl.enabled=true
-            - xpack.security.transport.ssl.verification_mode=certificate
-            - xpack.security.transport.ssl.keystore.path=elastic-certificates.p12
-            - xpack.security.transport.ssl.truststore.path=elastic-certificates.p12
+            #- xpack.monitoring.collection.enabled=true
+            #- xpack.security.enabled=false
+            #- xpack.security.transport.ssl.enabled=false
+            #- xpack.security.transport.ssl.verification_mode=certificate
+            #- xpack.security.transport.ssl.keystore.path=elastic-certificates.p12
+            #- xpack.security.transport.ssl.truststore.path=elastic-certificates.p12
             #- xpack.security.http.ssl.enabled=true
             #- xpack.security.http.ssl.keystore.path=http.p12
         ulimits:
             memlock:
                 soft: -1
                 hard: -1
+            
         expose:
             - "9200"
         networks:
             - bridge
     
-    esmst03:
+    esmaster03:
         image: docker.elastic.co/elasticsearch/elasticsearch:7.8.0
         container_name: esmaster03
         volumes:
@@ -82,12 +83,12 @@ services:
             - node.master=true
             - node.data=false
             - node.ingest=false
-            - xpack.monitoring.collection.enabled=true
-            - xpack.security.enabled=true
-            - xpack.security.transport.ssl.enabled=true
-            - xpack.security.transport.ssl.verification_mode=certificate
-            - xpack.security.transport.ssl.keystore.path=elastic-certificates.p12
-            - xpack.security.transport.ssl.truststore.path=elastic-certificates.p12
+            #- xpack.monitoring.collection.enabled=true
+            #- xpack.security.enabled=false
+            #- xpack.security.transport.ssl.enabled=false
+            #- xpack.security.transport.ssl.verification_mode=certificate
+            #- xpack.security.transport.ssl.keystore.path=elastic-certificates.p12
+            #- xpack.security.transport.ssl.truststore.path=elastic-certificates.p12
             #- xpack.security.http.ssl.enabled=true
             #- xpack.security.http.ssl.keystore.path=http.p12
         ulimits:
@@ -99,7 +100,7 @@ services:
         networks:
             - bridge
 
-    esigt01:
+    esingest01:
         image: docker.elastic.co/elasticsearch/elasticsearch:7.8.0
         container_name: esingest01
         volumes:
@@ -114,12 +115,12 @@ services:
             - node.master=false
             - node.data=false
             - node.ingest=true
-            - xpack.monitoring.collection.enabled=true
-            - xpack.security.enabled=true
-            - xpack.security.transport.ssl.enabled=true
-            - xpack.security.transport.ssl.verification_mode=certificate
-            - xpack.security.transport.ssl.keystore.path=elastic-certificates.p12
-            - xpack.security.transport.ssl.truststore.path=elastic-certificates.p12
+            #- xpack.monitoring.collection.enabled=true
+            #- xpack.security.enabled=false
+            #- xpack.security.transport.ssl.enabled=false
+            #- xpack.security.transport.ssl.verification_mode=certificate
+            #- xpack.security.transport.ssl.keystore.path=elastic-certificates.p12
+            #- xpack.security.transport.ssl.truststore.path=elastic-certificates.p12
         ulimits:
             memlock:
                 soft: -1
@@ -129,7 +130,7 @@ services:
         networks:
             - bridge
 
-    esigt02:
+    esingest02:
         image: docker.elastic.co/elasticsearch/elasticsearch:7.8.0
         container_name: esingest02
         volumes:
@@ -144,12 +145,12 @@ services:
             - node.master=false
             - node.data=false
             - node.ingest=true
-            - xpack.monitoring.collection.enabled=true
-            - xpack.security.enabled=true
-            - xpack.security.transport.ssl.enabled=true
-            - xpack.security.transport.ssl.verification_mode=certificate
-            - xpack.security.transport.ssl.keystore.path=elastic-certificates.p12
-            - xpack.security.transport.ssl.truststore.path=elastic-certificates.p12
+            #- xpack.monitoring.collection.enabled=true
+            #- xpack.security.enabled=false
+            #- xpack.security.transport.ssl.enabled=false
+            #- xpack.security.transport.ssl.verification_mode=certificate
+            #- xpack.security.transport.ssl.keystore.path=elastic-certificates.p12
+            #- xpack.security.transport.ssl.truststore.path=elastic-certificates.p12
         ulimits:
                 memlock:
                     soft: -1
@@ -159,7 +160,7 @@ services:
         networks:
                 - bridge
 
-    esdta01:
+    esdata01:
         image: docker.elastic.co/elasticsearch/elasticsearch:7.8.0
         container_name: esdata01
         environment:
@@ -172,12 +173,12 @@ services:
             - node.master=false
             - node.data=true
             - node.ingest=false
-            - xpack.monitoring.collection.enabled=true
-            - xpack.security.enabled=true
-            - xpack.security.transport.ssl.enabled=true
-            - xpack.security.transport.ssl.verification_mode=certificate
-            - xpack.security.transport.ssl.keystore.path=elastic-certificates.p12
-            - xpack.security.transport.ssl.truststore.path=elastic-certificates.p12
+            #- xpack.monitoring.collection.enabled=true
+            #- xpack.security.enabled=false
+            #- xpack.security.transport.ssl.enabled=false
+            #- xpack.security.transport.ssl.verification_mode=certificate
+            #- xpack.security.transport.ssl.keystore.path=elastic-certificates.p12
+            #- xpack.security.transport.ssl.truststore.path=elastic-certificates.p12
         ulimits:
                 memlock:
                     soft: -1
@@ -190,7 +191,7 @@ services:
         networks:
                 - bridge
 
-    esdta02:
+    esdata02:
         image: docker.elastic.co/elasticsearch/elasticsearch:7.8.0
         container_name: esdata02
         environment:
@@ -203,12 +204,12 @@ services:
             - node.master=false
             - node.data=true
             - node.ingest=false
-            - xpack.monitoring.collection.enabled=true
-            - xpack.security.enabled=true
-            - xpack.security.transport.ssl.enabled=true
-            - xpack.security.transport.ssl.verification_mode=certificate
-            - xpack.security.transport.ssl.keystore.path=elastic-certificates.p12
-            - xpack.security.transport.ssl.truststore.path=elastic-certificates.p12
+            #- xpack.monitoring.collection.enabled=true
+            #- xpack.security.enabled=false
+            #- xpack.security.transport.ssl.enabled=false
+            #- xpack.security.transport.ssl.verification_mode=certificate
+            #- xpack.security.transport.ssl.keystore.path=elastic-certificates.p12
+            #- xpack.security.transport.ssl.truststore.path=elastic-certificates.p12
         ulimits:
                 memlock:
                     soft: -1
@@ -221,7 +222,7 @@ services:
         networks:
                 - bridge
 
-    esdta03:
+    esdata03:
         image: docker.elastic.co/elasticsearch/elasticsearch:7.8.0
         container_name: esdata03
         environment:
@@ -234,12 +235,12 @@ services:
             - node.master=false
             - node.data=true
             - node.ingest=false
-            - xpack.monitoring.collection.enabled=true
-            - xpack.security.enabled=true
-            - xpack.security.transport.ssl.enabled=true
-            - xpack.security.transport.ssl.verification_mode=certificate
-            - xpack.security.transport.ssl.keystore.path=elastic-certificates.p12
-            - xpack.security.transport.ssl.truststore.path=elastic-certificates.p12
+            #- xpack.monitoring.collection.enabled=true
+            #- xpack.security.enabled=false
+            #- xpack.security.transport.ssl.enabled=false
+            #- xpack.security.transport.ssl.verification_mode=certificate
+            #- xpack.security.transport.ssl.keystore.path=elastic-certificates.p12
+            #- xpack.security.transport.ssl.truststore.path=elastic-certificates.p12
         ulimits:
                 memlock:
                     soft: -1
@@ -256,9 +257,8 @@ services:
         image: docker.elastic.co/kibana/kibana:7.8.0
         container_name: kibana
         volumes:
-            - ./kibana.yml:/usr/share/kibana/config/kibana.yml
+            - ./kibana:/usr/share/kibana/config
             - ./elastic-certificates.p12:/usr/share/kibana/config/elastic-certificates.p12
-            - ./kibana/elasticsearch-ca.pem:/usr/share/kibana/config/elasticsearch-ca.pem
         ulimits:
                 memlock:
                     soft: -1
