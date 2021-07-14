@@ -16,9 +16,9 @@ services:
             - node.master=true
             - node.data=false
             - node.ingest=false
-            #- xpack.monitoring.collection.enabled=true
-            #- xpack.security.enabled=false
-            #- xpack.security.transport.ssl.enabled=false
+            - xpack.monitoring.collection.enabled=true
+            #- xpack.security.enabled=true
+            #- xpack.security.transport.ssl.enabled=true
             #- xpack.security.transport.ssl.verification_mode=certificate
             #- xpack.security.transport.ssl.keystore.path=elastic-certificates.p12
             #- xpack.security.transport.ssl.truststore.path=elastic-certificates.p12
@@ -49,9 +49,9 @@ services:
             - node.master=true
             - node.data=false
             - node.ingest=false
-            #- xpack.monitoring.collection.enabled=true
-            #- xpack.security.enabled=false
-            #- xpack.security.transport.ssl.enabled=false
+            - xpack.monitoring.collection.enabled=true
+            #- xpack.security.enabled=true
+            #- xpack.security.transport.ssl.enabled=true
             #- xpack.security.transport.ssl.verification_mode=certificate
             #- xpack.security.transport.ssl.keystore.path=elastic-certificates.p12
             #- xpack.security.transport.ssl.truststore.path=elastic-certificates.p12
@@ -83,9 +83,9 @@ services:
             - node.master=true
             - node.data=false
             - node.ingest=false
-            #- xpack.monitoring.collection.enabled=true
-            #- xpack.security.enabled=false
-            #- xpack.security.transport.ssl.enabled=false
+            - xpack.monitoring.collection.enabled=true
+            #- xpack.security.enabled=true
+            #- xpack.security.transport.ssl.enabled=true
             #- xpack.security.transport.ssl.verification_mode=certificate
             #- xpack.security.transport.ssl.keystore.path=elastic-certificates.p12
             #- xpack.security.transport.ssl.truststore.path=elastic-certificates.p12
@@ -115,12 +115,14 @@ services:
             - node.master=false
             - node.data=false
             - node.ingest=true
-            #- xpack.monitoring.collection.enabled=true
-            #- xpack.security.enabled=false
-            #- xpack.security.transport.ssl.enabled=false
+            - xpack.monitoring.collection.enabled=true
+            #- xpack.security.enabled=true
+            #- xpack.security.transport.ssl.enabled=true
             #- xpack.security.transport.ssl.verification_mode=certificate
             #- xpack.security.transport.ssl.keystore.path=elastic-certificates.p12
             #- xpack.security.transport.ssl.truststore.path=elastic-certificates.p12
+            #- xpack.security.http.ssl.enabled=true
+            #- xpack.security.http.ssl.keystore.path=http.p12
         ulimits:
             memlock:
                 soft: -1
@@ -145,12 +147,14 @@ services:
             - node.master=false
             - node.data=false
             - node.ingest=true
-            #- xpack.monitoring.collection.enabled=true
-            #- xpack.security.enabled=false
-            #- xpack.security.transport.ssl.enabled=false
+            - xpack.monitoring.collection.enabled=true
+            #- xpack.security.enabled=true
+            #- xpack.security.transport.ssl.enabled=true
             #- xpack.security.transport.ssl.verification_mode=certificate
             #- xpack.security.transport.ssl.keystore.path=elastic-certificates.p12
             #- xpack.security.transport.ssl.truststore.path=elastic-certificates.p12
+            #- xpack.security.http.ssl.enabled=true
+            #- xpack.security.http.ssl.keystore.path=http.p12
         ulimits:
                 memlock:
                     soft: -1
@@ -173,12 +177,14 @@ services:
             - node.master=false
             - node.data=true
             - node.ingest=false
-            #- xpack.monitoring.collection.enabled=true
-            #- xpack.security.enabled=false
-            #- xpack.security.transport.ssl.enabled=false
+            - xpack.monitoring.collection.enabled=true
+            #- xpack.security.enabled=true
+            #- xpack.security.transport.ssl.enabled=true
             #- xpack.security.transport.ssl.verification_mode=certificate
             #- xpack.security.transport.ssl.keystore.path=elastic-certificates.p12
             #- xpack.security.transport.ssl.truststore.path=elastic-certificates.p12
+            #- xpack.security.http.ssl.enabled=true
+            #- xpack.security.http.ssl.keystore.path=http.p12
         ulimits:
                 memlock:
                     soft: -1
@@ -204,12 +210,14 @@ services:
             - node.master=false
             - node.data=true
             - node.ingest=false
-            #- xpack.monitoring.collection.enabled=true
-            #- xpack.security.enabled=false
-            #- xpack.security.transport.ssl.enabled=false
+            - xpack.monitoring.collection.enabled=true
+            #- xpack.security.enabled=true
+            #- xpack.security.transport.ssl.enabled=true
             #- xpack.security.transport.ssl.verification_mode=certificate
             #- xpack.security.transport.ssl.keystore.path=elastic-certificates.p12
             #- xpack.security.transport.ssl.truststore.path=elastic-certificates.p12
+            #- xpack.security.http.ssl.enabled=true
+            #- xpack.security.http.ssl.keystore.path=http.p12
         ulimits:
                 memlock:
                     soft: -1
@@ -235,12 +243,14 @@ services:
             - node.master=false
             - node.data=true
             - node.ingest=false
-            #- xpack.monitoring.collection.enabled=true
-            #- xpack.security.enabled=false
-            #- xpack.security.transport.ssl.enabled=false
+            - xpack.monitoring.collection.enabled=true
+            #- xpack.security.enabled=true
+            #- xpack.security.transport.ssl.enabled=true
             #- xpack.security.transport.ssl.verification_mode=certificate
             #- xpack.security.transport.ssl.keystore.path=elastic-certificates.p12
             #- xpack.security.transport.ssl.truststore.path=elastic-certificates.p12
+            #- xpack.security.http.ssl.enabled=true
+            #- xpack.security.http.ssl.keystore.path=http.p12
         ulimits:
                 memlock:
                     soft: -1
@@ -256,9 +266,15 @@ services:
     kibana:
         image: docker.elastic.co/kibana/kibana:7.8.0
         container_name: kibana
+        environment:
+            - xpack.encryptedSavedObjects.encryptionKey:"HZDpeIxVZVEEholxTVCRcWSuloTpegVhnlqudOMV"
+            #- xpack.security.http.ssl.enabled=true
+            #- xpack.security.http.ssl.keystore.path=http.p12
         volumes:
+            - ./elasticsearch/http.p12:/usr/share/elasticsearch/config/http.p12
             - ./kibana:/usr/share/kibana/config
             - ./elastic-certificates.p12:/usr/share/kibana/config/elastic-certificates.p12
+            
         ulimits:
                 memlock:
                     soft: -1
