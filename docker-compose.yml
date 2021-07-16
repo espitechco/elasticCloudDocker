@@ -263,13 +263,9 @@ services:
         networks:
                 - bridge
 
-    kibana:
+    kibana01:
         image: docker.elastic.co/kibana/kibana:7.8.0
-        container_name: kibana
-        environment:
-            - xpack.encryptedSavedObjects.encryptionKey:"HZDpeIxVZVEEholxTVCRcWSuloTpegVhnlqudOMV"
-            #- xpack.security.http.ssl.enabled=true
-            #- xpack.security.http.ssl.keystore.path=http.p12
+        container_name: kibana01
         volumes:
             - ./elasticsearch/http.p12:/usr/share/elasticsearch/config/http.p12
             - ./kibana:/usr/share/kibana/config
@@ -284,6 +280,23 @@ services:
         networks:
             - bridge
         
+    kibana02:
+        image: docker.elastic.co/kibana/kibana:7.8.0
+        container_name: kibana02
+        volumes:
+            - ./elasticsearch/http.p12:/usr/share/elasticsearch/config/http.p12
+            - ./kibana:/usr/share/kibana/config
+            - ./elastic-certificates.p12:/usr/share/kibana/config/elastic-certificates.p12
+            
+        ulimits:
+                memlock:
+                    soft: -1
+                    hard: -1
+        ports:
+            - 5602:5601
+        networks:
+            - bridge
+
 volumes:
     esdta01:
         driver: local
