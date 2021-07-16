@@ -111,3 +111,6 @@ logging.dest: stdout
 # Specifies locale to be used for all localizable strings, dates and number formats.
 # Supported languages are the following: English - en , by default , Chinese - zh-CN .
 #i18n.locale: "en"
+
+# Alerts and Actions
+xpack.encryptedSavedObjects.encryptionKey: "HZDpeIxVZVEEholxTVCRcWSuloTpegVhnlqudOMV"
